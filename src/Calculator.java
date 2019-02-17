@@ -34,8 +34,43 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
-        int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
-        // TODO: complete this...
+    	int result = 0;
+    	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
+    	String command = null;
+    	do
+    	{
+    		try
+    		{
+    			// TODO: complete this...
+    			if(command == "negate")
+    			{
+    				result = -a; 
+    			}
+    			if(command == "halve")
+    			{
+    				result = a/2;
+    			}
+    		}
+    		catch(NumberFormatException nfe)
+    		{
+    			System.out.println("Second input was not an integer.\n Please try again. ");
+    		}
+    		try
+    		{
+    			if(tokens[0].equalsIgnoreCase("negate") || tokens[0].equalsIgnoreCase("halve"))
+    			{
+    				command = tokens[0];
+    			}
+        		throw new CalculatorException("Illegal Command"); 
+    		}
+    		
+    		catch(CalculatorException m)
+    		{
+    			System.out.println("First input was not negate or halve.\n Please try again.");
+    		}
+    	}while(tokens != null);
+		
+    	return result;
     }
 
     /**
@@ -70,6 +105,20 @@ public class Calculator
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
         // TODO: complete this...
+        int result = 0;
+    	int num1 = Integer.parseInt(tokens[0]); // Throws NumberFormatException if the second token is not an int value.
+        int num2 = 
+    	// TODO: complete this...
+    	
+        if(tokens[0].equals("negate"))
+        {
+        	result = -a; 
+        }
+        if(tokens[0].equals("halve"))
+        {
+        	result = a/2;
+        }
+        return result;
     }
 
     /**
@@ -106,6 +155,7 @@ public class Calculator
         switch(tokens.length)
         {
             // TODO: complete this...
+        	
         }
 
     }
@@ -144,5 +194,6 @@ public class Calculator
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
+    	
     }
 }
