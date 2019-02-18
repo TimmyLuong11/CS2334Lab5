@@ -107,18 +107,58 @@ public class Calculator
         // TODO: complete this...
         int result = 0;
     	int num1 = Integer.parseInt(tokens[0]); // Throws NumberFormatException if the second token is not an int value.
-        int num2 = 
+        String command = tokens[1];
+    	int num2 = Integer.parseInt(tokens[2]);
     	// TODO: complete this...
-    	
-        if(tokens[0].equals("negate"))
-        {
-        	result = -a; 
-        }
-        if(tokens[0].equals("halve"))
-        {
-        	result = a/2;
-        }
-        return result;
+    	do
+    	{
+    		try
+    		{
+    			// TODO: complete this...
+    			if(command == "+")
+    			{
+    				result = num1+num2; 
+    			}
+    			if(command == "-")
+    			{
+    				result = num1-num2;
+    			}
+    			if(command == "/")
+    			{
+    				result = num1/num2;
+    			}
+    		}
+    		catch(NumberFormatException nfe)
+    		{
+    			System.out.println("Second input was not an integer.\n Please try again. ");
+    		}
+    		try
+    		{
+    			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
+    			{
+    				command = tokens[1];
+    			}
+        		throw new CalculatorException("Illegal Command"); 
+    		}
+    		catch(CalculatorException m)
+    		{
+    			System.out.println("Second input was not + or - or /.\n Please try again.");
+    		}
+    		try
+    		{
+    			if(tokens[1].equals("/") && tokens[3].equals("0"))
+    			{
+    				result = num1/num2;
+    			}
+    		}
+    		catch(ArithmeticException m)
+    		{
+    			System.out.println("A division by zero has occured.\n Please try again.");
+    		}
+    		
+    	}while(tokens != null);
+		
+    	return result;
     }
 
     /**
