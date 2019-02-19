@@ -55,13 +55,21 @@ public class Calculator
     		{
     			System.out.println("Second input was not an integer.\n Please try again. ");
     		}
-    		
-    		if(tokens[0].equalsIgnoreCase("negate") || tokens[0].equalsIgnoreCase("halve"))
-    			{
+    		try
+    		{
+    			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
+				{
     				command = tokens[0];
-    				throw new CalculatorException("Second input was not negate or halve.\n Please try again."); 
-    			}
-        		
+				}
+    			else
+				{
+    				throw new CalculatorException("Illegal Command"); 
+				}
+    		}
+    		catch(CalculatorException e)
+    		{
+    			System.out.println("First input was not negate or halve.\n Please try again."); 
+    		}
     	}while(tokens != null);
 		
     	return result;
@@ -137,11 +145,21 @@ public class Calculator
     		{
     			System.out.println("A division by zero has occured.\n Please try again.");
     		}
-    		if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
+    		try
     		{
-    			command = tokens[1];
-    			throw new CalculatorException("Second input was not + or - or /.\\n Please try again."); 
+    			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
+    			{
+    				command = tokens[1];
+    			}
+    			else
+    			{
+    				throw new CalculatorException("Illegal Command");
+    			}
     		}
+			catch(CalculatorException e)
+			{
+				System.out.println("Second input was not + or - or /.\\n Please try again.");
+			}
     	}while(tokens != null);
 		
     	return result;
@@ -178,31 +196,39 @@ public class Calculator
     protected static int execute(String[] tokens) throws NumberFormatException, CalculatorException
     {
         // Condition on the number of tokens (number of strings in user input separated by spaces)
-        switch(tokens.length)
+        int result = 0;
+    	switch(tokens.length)
         {
             // TODO: complete this...
         	case 1:
         	{
-        		throw new CalculatorException("Illegal Token Length"); 
+        		throw new CalculatorException("Illegal Command"); 
         	}
         	case 2:
         	{
-        		
+        		if(tokens[0].equalsIgnoreCase("quit"))
+        		{
+        			result = Integer.MIN_VALUE;
+        		}
+        		else
+        		{
+        			throw new CalculatorException("Illegal Command"); 
+        		}
         	}
         	case 3:
         	{
-        		return calculateTwoTokens(tokens);
+        		result = calculateTwoTokens(tokens);
         	}
         	case 4:
         	{
-        		return calculateThreeTokens(tokens);
+        		result = calculateThreeTokens(tokens);
         	}
         	case 5:
         	{
-        		throw new CalculatorException("Illegal Token Length"); 
+        		throw new CalculatorException("Illegal Command"); 
         	}
         }
-		return 0;
+		return result;
 
     }
 
