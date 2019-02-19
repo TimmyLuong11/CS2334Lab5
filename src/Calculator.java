@@ -36,10 +36,23 @@ public class Calculator
     {
     	int result = 0;
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
-    	String command = "";
-    	do
-    	{
-    		try
+    	String command = tokens[0];
+    	try
+		{
+			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
+			{
+				command = tokens[0];
+			}
+			else
+			{
+				throw new CalculatorException("Illegal Command"); 
+			}
+		}
+		catch(CalculatorException e)
+		{
+			throw new CalculatorException("Illegal Command");  
+		}	
+    	try
     		{
     			// TODO: complete this...
     			if(command == "negate")
@@ -53,24 +66,11 @@ public class Calculator
     		}
     		catch(NumberFormatException nfe)
     		{
-    			System.out.println("Second input was not an integer.\n Please try again. ");
+    			throw new CalculatorException("Second input was not an integer. Please try again. ");
     		}
-    		try
-    		{
-    			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
-				{
-    				command = tokens[0];
-				}
-    			else
-				{
-    				throw new CalculatorException("Illegal Command"); 
-				}
-    		}
-    		catch(CalculatorException e)
-    		{
-    			System.out.println("First input was not negate or halve.\n Please try again."); 
-    		}
-    	}while(tokens != null);
+    		
+
+
 		
     	return result;
     }
@@ -112,8 +112,21 @@ public class Calculator
         String command = tokens[1];
     	int num2 = Integer.parseInt(tokens[2]);
     	// TODO: complete this...
-    	do
-    	{
+		try
+		{
+			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
+			{
+				command = tokens[1];
+			}
+			else
+			{
+				throw new CalculatorException("Illegal Command");
+			}
+		}
+		catch(CalculatorException e)
+		{
+			throw new CalculatorException("Illegal Command");
+		}
     		try
     		{
     			// TODO: complete this...
@@ -138,29 +151,15 @@ public class Calculator
     		{
     			if(tokens[1].equals("/") && tokens[3].equals("0"))
     			{
-    				result = num1/num2;
+    				throw new ArithmeticException();
     			}
     		}
     		catch(ArithmeticException m)
     		{
     			System.out.println("A division by zero has occured.\n Please try again.");
     		}
-    		try
-    		{
-    			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
-    			{
-    				command = tokens[1];
-    			}
-    			else
-    			{
-    				throw new CalculatorException("Illegal Command");
-    			}
-    		}
-			catch(CalculatorException e)
-			{
-				System.out.println("Second input was not + or - or /.\n Please try again.");
-			}
-    	}while(tokens != null);
+
+
 		
     	return result;
     }
@@ -212,7 +211,7 @@ public class Calculator
         		}
         		else
         		{
-        			throw new CalculatorException("Illegal Command"); 
+        			throw new CalculatorException("Illegal Token Length"); 
         		}
         	}
         	case 3:
@@ -225,7 +224,7 @@ public class Calculator
         	}
         	case 5:
         	{
-        		throw new CalculatorException("Illegal Command"); 
+        		throw new CalculatorException("Illegal Token Length"); 
         	}
         }
 		return result;
@@ -314,7 +313,7 @@ public class Calculator
     		}
     		catch(CalculatorException | NumberFormatException e)
     		{
-    			result = "Input was not an integer. Please try again.";
+    			result = String.format("%s", input);
     		}
     	}
     	case 5:
@@ -326,7 +325,7 @@ public class Calculator
     		}
     		catch(CalculatorException e)
     		{
-    			result = "Input was not an integer. Please try again.";
+    			result = String.format("%s", input);
     		}
     	}
     	}

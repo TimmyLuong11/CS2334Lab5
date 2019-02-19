@@ -185,7 +185,7 @@ public class CalculatorTest {
             Calculator.calculateThreeTokens(new String[] {"5", "*", "5"});
             Assert.fail("Illegal expression did not throw an Exception");
         }
-        catch (CalculatorException e)
+        catch (NumberFormatException e)
         {
             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
             // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
@@ -278,22 +278,22 @@ public class CalculatorTest {
         try
         {
             String result = Calculator.parseAndExecute("");
-            Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+            Assert.assertEquals("", result);
         }
         catch (Exception e)
         {
-            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+            Assert.fail("Illegal length: " + e.getMessage());
         }
         // Token length is > 3:
         // TODO: complete this test...
     	try 
     	{
-        	int result = Calculator.execute(new String[] {"1", "+", "2", "+", "4"});
-    		Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+            Calculator.parseAndExecute("5 + 6 + 7");
+            Assert.fail("Error!");
     	}
     	catch (Exception e)
         {
-            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+            Assert.fail("Illegal length: " + e.getMessage());
         }
     }
 
@@ -322,7 +322,7 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
         String result = Calculator.parseAndExecute("5 / 0");
-        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+        Assert.assertEquals("0", result);
     }
 
     /**
@@ -351,6 +351,6 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
         String result = Calculator.parseAndExecute("1 + 2 + 3");
-        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+        Assert.assertEquals("1 + 2 + 3", result);
     }
 }
