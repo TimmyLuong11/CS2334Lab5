@@ -267,21 +267,69 @@ public class Calculator
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
     	String result = "";
+    	int number = 0;
     	String[] split = input.split(" ");
-    	try 
+    	switch(split.length)
     	{
-			execute(split);
-		} catch (NumberFormatException e)
+    	case 1:
     	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Calculator Exception, message is: Illegal Command");
-		} catch (CalculatorException e) 
+    		if(input.equals("quit"))
+    		{
+    			result = "quit";
+    		}
+    	}
+    	case 2:
     	{
-			// TODO Auto-generated catch block
-			System.out.println("Calculator Exception, message is: Illegal Command");
-			e.printStackTrace();
-		}
-    	return result;
-    }
+    		try
+    		{
+    		number = Calculator.execute(split);
+    		if(number > 0 || number <= 0)
+    		{
+    			result = String.format("The result is %d", number);
+    		}
+    		}
+    		catch(NumberFormatException | CalculatorException e)
+    		{
+    			result = "Please try again";
+    		}
+    	}
+    	case 3:
+    	{
+    		try 
+    		{
+    			Calculator.execute(split);
+    			
+    		}
+    		catch(CalculatorException | ArithmeticException e)
+    		{
+    			result = "You divided by zero. Please try again.";
+    		}
+    	}
+    	case 4:
+    	{
+    		try 
+    		{
+    			Calculator.execute(split);
+    			
+    		}
+    		catch(CalculatorException | NumberFormatException e)
+    		{
+    			result = "Input was not an integer. Please try again.";
+    		}
+    	}
+    	case 5:
+    	{
+    		try 
+    		{
+    			Calculator.execute(split);
+    			
+    		}
+    		catch(CalculatorException e)
+    		{
+    			result = "Input was not an integer. Please try again.";
+    		}
+    	}
+    	}
+		return result;
+    }	
 }
