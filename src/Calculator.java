@@ -158,7 +158,7 @@ public class Calculator
     		}
 			catch(CalculatorException e)
 			{
-				System.out.println("Second input was not + or - or /.\\n Please try again.");
+				System.out.println("Second input was not + or - or /.\n Please try again.");
 			}
     	}while(tokens != null);
 		
@@ -266,6 +266,22 @@ public class Calculator
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
-    	
+    	String result = "";
+    	String[] split = input.split(" ");
+    	try 
+    	{
+			execute(split);
+		} catch (NumberFormatException e)
+    	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Calculator Exception, message is: Illegal Command");
+		} catch (CalculatorException e) 
+    	{
+			// TODO Auto-generated catch block
+			System.out.println("Calculator Exception, message is: Illegal Command");
+			e.printStackTrace();
+		}
+    	return result;
     }
 }
