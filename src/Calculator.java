@@ -36,7 +36,7 @@ public class Calculator
     {
     	int result = 0;
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
-    	String command = null;
+    	String command = "";
     	do
     	{
     		try
@@ -55,19 +55,13 @@ public class Calculator
     		{
     			System.out.println("Second input was not an integer.\n Please try again. ");
     		}
-    		try
-    		{
-    			if(tokens[0].equalsIgnoreCase("negate") || tokens[0].equalsIgnoreCase("halve"))
+    		
+    		if(tokens[0].equalsIgnoreCase("negate") || tokens[0].equalsIgnoreCase("halve"))
     			{
     				command = tokens[0];
+    				throw new CalculatorException("Second input was not negate or halve.\n Please try again."); 
     			}
-        		throw new CalculatorException("Illegal Command"); 
-    		}
-    		
-    		catch(CalculatorException m)
-    		{
-    			System.out.println("First input was not negate or halve.\n Please try again.");
-    		}
+        		
     	}while(tokens != null);
 		
     	return result;
@@ -104,7 +98,7 @@ public class Calculator
     protected static int calculateThreeTokens(String[] tokens)
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
-        // TODO: complete this...
+       // TODO: complete this...
         int result = 0;
     	int num1 = Integer.parseInt(tokens[0]); // Throws NumberFormatException if the second token is not an int value.
         String command = tokens[1];
@@ -134,18 +128,6 @@ public class Calculator
     		}
     		try
     		{
-    			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
-    			{
-    				command = tokens[1];
-    			}
-        		throw new CalculatorException("Illegal Command"); 
-    		}
-    		catch(CalculatorException m)
-    		{
-    			System.out.println("Second input was not + or - or /.\n Please try again.");
-    		}
-    		try
-    		{
     			if(tokens[1].equals("/") && tokens[3].equals("0"))
     			{
     				result = num1/num2;
@@ -155,7 +137,11 @@ public class Calculator
     		{
     			System.out.println("A division by zero has occured.\n Please try again.");
     		}
-    		
+    		if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
+    		{
+    			command = tokens[1];
+    			throw new CalculatorException("Second input was not + or - or /.\\n Please try again."); 
+    		}
     	}while(tokens != null);
 		
     	return result;
@@ -195,8 +181,28 @@ public class Calculator
         switch(tokens.length)
         {
             // TODO: complete this...
-        	
+        	case 1:
+        	{
+        		throw new CalculatorException("Illegal Token Length"); 
+        	}
+        	case 2:
+        	{
+        		
+        	}
+        	case 3:
+        	{
+        		return calculateTwoTokens(tokens);
+        	}
+        	case 4:
+        	{
+        		return calculateThreeTokens(tokens);
+        	}
+        	case 5:
+        	{
+        		throw new CalculatorException("Illegal Token Length"); 
+        	}
         }
+		return 0;
 
     }
 

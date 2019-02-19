@@ -28,6 +28,15 @@ public class CalculatorTest {
     public void calculateTwoTokensTestValidHalve() throws AssertException
     {
         // TODO: complete this test...
+    	try
+    	{
+    		int result = Calculator.calculateTwoTokens(new String[] {"halve", "6"});
+    		Assert.assertEquals(3, result);
+    	}
+        catch (Exception e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+    	}
     }
 
     /**
@@ -44,6 +53,7 @@ public class CalculatorTest {
         {
             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
             // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
+        	
         }
         catch (Exception e)
         {
@@ -57,6 +67,7 @@ public class CalculatorTest {
     public void calculateTwoTokensTestInvalidCommand() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -65,6 +76,7 @@ public class CalculatorTest {
     public void calculateThreeTokensTestValidAdd() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -73,6 +85,7 @@ public class CalculatorTest {
     public void calculateThreeTokensTestValidSubtract() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -81,6 +94,7 @@ public class CalculatorTest {
     public void calculateThreeTokensTestValidDivide() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -98,6 +112,7 @@ public class CalculatorTest {
         {
             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
             // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
+        	
         }
         catch (Exception e)
         {
@@ -114,6 +129,7 @@ public class CalculatorTest {
         {
             // We expect the function to throw a NumberFormatException (from failure of Integer.parseInt)
             // Success; Assert.fail will not be thrown and the code will complete the test, thus succeeding.
+        	
         }
         catch (Exception e)
         {
@@ -127,6 +143,7 @@ public class CalculatorTest {
     public void calculateThreeTokensTestInvalidCommand() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -135,6 +152,7 @@ public class CalculatorTest {
     public void executeTestValidQuit() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -159,6 +177,7 @@ public class CalculatorTest {
     public void executeTestValidThreeTokens() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -193,6 +212,7 @@ public class CalculatorTest {
 
         // Token length is > 3:
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -219,6 +239,7 @@ public class CalculatorTest {
     public void parseAndExecuteTestDivideByZero() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -227,6 +248,7 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidNumber() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 
     /**
@@ -244,5 +266,6 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidTokenLength() throws AssertException
     {
         // TODO: complete this test...
+    	
     }
 }
