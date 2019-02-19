@@ -275,10 +275,26 @@ public class CalculatorTest {
     {
         // Token length is 0:
         // TODO: complete this test...
-
+        try
+        {
+            String result = Calculator.parseAndExecute("");
+            Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+        }
+        catch (Exception e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
         // Token length is > 3:
         // TODO: complete this test...
-    	
+    	try 
+    	{
+        	int result = Calculator.execute(new String[] {"1", "+", "2", "+", "4"});
+    		Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+    	}
+    	catch (Exception e)
+        {
+            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
+        }
     }
 
     /**
