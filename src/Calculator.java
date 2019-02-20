@@ -120,7 +120,7 @@ public class Calculator
 		}
 		catch(ArithmeticException m)
 		{
-			System.out.println("A division by zero has occured.\n Please try again.");
+			System.out.println("Attempted to divide by 0. Please try again.");
 		}
     	try
 		{
@@ -292,7 +292,7 @@ public class Calculator
     		}
     		
     				
-    		if(result != "quit")
+    		if(!(result.equals("quit")))
     		{
     			result = String.format("Calculator Exception, message is: Illegal Command");
     		}
