@@ -37,6 +37,21 @@ public class Calculator
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
     	String command = tokens[0];
     	try
+		{
+			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
+			{
+				command = tokens[0];
+			}
+			else
+			{
+				throw new CalculatorException("Illegal Command"); 
+			}
+		}
+		catch(CalculatorException e)
+		{
+			throw new CalculatorException("Illegal Command");  
+		}	
+    	try
     		{
     			// TODO: complete this...
     			if(command == "negate")
@@ -52,21 +67,7 @@ public class Calculator
     		{
     			throw new CalculatorException("Second input was not an integer. Please try again. ");
     		}
-    	try
-		{
-			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
-			{
-				command = tokens[0];
-			}
-			else
-			{
-				throw new CalculatorException("Illegal Command"); 
-			}
-		}
-		catch(CalculatorException e)
-		{
-			throw new CalculatorException("Illegal Command");  
-		}	
+    	
 
 
 		
@@ -110,7 +111,18 @@ public class Calculator
         String command = tokens[1];
     	int num2 = Integer.parseInt(tokens[2]);
     	// TODO: complete this...
-		try
+    	try
+		{
+			if(tokens[1].equals("/") && tokens[2].equals("0"))
+			{
+				throw new ArithmeticException();
+			}
+		}
+		catch(ArithmeticException m)
+		{
+			System.out.println("A division by zero has occured.\n Please try again.");
+		}
+    	try
 		{
 			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
 			{
@@ -145,17 +157,7 @@ public class Calculator
     		{
     			System.out.println("Second input was not an integer.\n Please try again. ");
     		}
-    		try
-    		{
-    			if(tokens[1].equals("/") && tokens[3].equals("0"))
-    			{
-    				throw new ArithmeticException();
-    			}
-    		}
-    		catch(ArithmeticException m)
-    		{
-    			System.out.println("A division by zero has occured.\n Please try again.");
-    		}
+    		
 
 
 		
@@ -193,39 +195,41 @@ public class Calculator
     protected static int execute(String[] tokens) throws NumberFormatException, CalculatorException
     {
         // Condition on the number of tokens (number of strings in user input separated by spaces)
-        int result = 0;
     	switch(tokens.length)
         {
             // TODO: complete this...
-        	case 1:
-        	{
-        		throw new CalculatorException("Illegal Command"); 
-        	}
-        	case 2:
-        	{
-        		if(tokens[0].equalsIgnoreCase("quit"))
-        		{
-        			result = Integer.MIN_VALUE;
-        		}
-        		else
-        		{
-        			throw new CalculatorException("Illegal Token Length"); 
-        		}
-        	}
-        	case 3:
-        	{
-        		result = calculateTwoTokens(tokens);
-        	}
-        	case 4:
-        	{
-        		result = calculateThreeTokens(tokens);
-        	}
-        	case 5:
+        	case 0:
         	{
         		throw new CalculatorException("Illegal Token Length"); 
         	}
+        	case 1:
+        	{
+        		if(tokens[0].equalsIgnoreCase("quit"))
+        		{
+        			return Integer.MIN_VALUE;
+        		}
+        		else
+        		{
+        			throw new CalculatorException("Illegal Command"); 
+        		}
+        	}
+        	case 2:
+        	{
+        		return calculateTwoTokens(tokens);
+        	}
+        	case 3:
+        	{
+        		return calculateThreeTokens(tokens);
+        	}
+        	case 4:
+        	{
+        		throw new CalculatorException("Illegal Token Length"); 
+        	}
+        	default: 
+        	{
+        		throw new CalculatorException("Illegal Token Length");
+        	}
         }
-		return result;
 
     }
 
@@ -281,14 +285,20 @@ public class Calculator
     		try
     		{
     			number = Calculator.execute(split);
-    			if(number > 0 || number <= 0)
-    			{
-    				result = String.format("The result is %d", number);
-    			}
     		}
     		catch(NumberFormatException | CalculatorException e)
     		{
-    			result = "Calculator Exception, message is: Illegal Command";
+    			result = "Please try again";
+    		}
+    		
+    				
+    		if(result != "quit")
+    		{
+    			result = String.format("Calculator Exception, message is: Illegal Command");
+    		}
+    		else
+    		{
+    			result = String.format("The result is: %d", number);
     		}
     		break;
     	}
@@ -301,7 +311,7 @@ public class Calculator
     		}
     		catch(CalculatorException | ArithmeticException e)
     		{
-    			result = "You divided by zero. Please try again.";
+    			result = "Input number cannot be parsed to an int. Please try again.";
     		}
     		break;
     	}
@@ -314,7 +324,7 @@ public class Calculator
     		}
     		catch(CalculatorException | NumberFormatException e)
     		{
-    			result = String.format("Calculator Exception, message is: %s", e.getMessage());
+    			result = String.format("Calculator Exception, message is: Illegal Token Length");
     		}
     		break;
     	}

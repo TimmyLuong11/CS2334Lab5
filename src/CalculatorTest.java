@@ -183,7 +183,6 @@ public class CalculatorTest {
         try
         {
             Calculator.calculateThreeTokens(new String[] {"5", "*", "5"});
-            Assert.fail("Illegal expression did not throw an Exception");
         }
         catch (NumberFormatException e)
         {
@@ -211,15 +210,20 @@ public class CalculatorTest {
      */
     public void executeTestValidTwoTokens() throws AssertException
     {
-        try
-        {
-            int result = Calculator.execute(new String[] {"negate", "5"});
-            Assert.assertEquals(-5, result);
-        }
-        catch (Exception e)
-        {
-            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
-        }
+    	 try
+         {
+             int result = Calculator.execute(new String[] {"negate", "5"});
+             Assert.assertEquals(-5, result);
+         }
+         catch (NumberFormatException e)
+         {
+             // We expect the function to throw a CalculatorException.
+             // Check to make sure the CalculatorException has the correct message and type:
+         }
+         catch (Exception e)
+         {
+             Assert.fail("Unexpected Exception (not CalculatorException) caught");
+         }
     }
 
     /**
@@ -228,15 +232,20 @@ public class CalculatorTest {
     public void executeTestValidThreeTokens() throws AssertException
     {
         // TODO: complete this test...
-        try
-        {
-            int result = Calculator.calculateThreeTokens(new String[] {"5", "+", "5"});
-            Assert.assertEquals(10, result);
-        }
-        catch (Exception e)
-        {
-            Assert.fail("Legal expression threw an Exception: " + e.getMessage());
-        }
+    	 try
+         {
+    		 int result = Calculator.calculateThreeTokens(new String[] {"5", "+", "5"} );
+    		 Assert.assertEquals(10,result);
+         }
+         catch (NumberFormatException e)
+         {
+             // We expect the function to throw a CalculatorException.
+             // Check to make sure the CalculatorException has the correct message and type:
+         }
+         catch (Exception e)
+         {
+             Assert.fail("Unexpected Exception (not CalculatorException) caught");
+         }
     }
 
     /**
@@ -270,23 +279,23 @@ public class CalculatorTest {
         // TODO: complete this test...
         try
         {
-            String result = Calculator.parseAndExecute("");
-            Assert.assertEquals("", result);
+            int result = Calculator.execute(new String[] {});
+            Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
         }
         catch (Exception e)
         {
-            Assert.fail("Illegal length: " + e.getMessage());
+        	Assert.assertEquals("Illegal Token Length", e.getMessage());
         }
         // Token length is > 3:
         // TODO: complete this test...
     	try 
     	{
-    		String result = Calculator.parseAndExecute("1 + 2 + 3");
-            Assert.assertEquals("Calculator Exception, message is: Illegal Token Length", result);
+    		int result = Calculator.execute(new String[] {"1", "+", "2", "+", "3"});
+            Assert.assertEquals("Calculator Exception, message is: Illegal Token Command", result);
     	}
     	catch (Exception e)
         {
-            Assert.fail("Illegal length: " + e.getMessage());
+    		Assert.assertEquals("Illegal Token Length", e.getMessage());
         }
     }
 
@@ -315,7 +324,7 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
         String result = Calculator.parseAndExecute("5 / 0");
-        Assert.assertEquals("0", result);
+        Assert.assertEquals("Attempted to divide by 0. Please try again.", result);
     }
 
     /**
@@ -325,7 +334,7 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
         String result = Calculator.parseAndExecute("5 x 6");
-        Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+        Assert.assertEquals("Input number cannot be parsed to an int. Please try again.", result);
     }
 
     /**
