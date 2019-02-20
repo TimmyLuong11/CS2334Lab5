@@ -34,9 +34,24 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
-    	int result = 0;
     	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
     	String command = tokens[0];
+    	try
+    		{
+    			// TODO: complete this...
+    			if(command == "negate")
+    			{
+    				a = -a; 
+    			}
+    			if(command == "halve")
+    			{
+    				a = a/2;
+    			}
+    		}
+    		catch(NumberFormatException nfe)
+    		{
+    			throw new CalculatorException("Second input was not an integer. Please try again. ");
+    		}
     	try
 		{
 			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
@@ -52,27 +67,10 @@ public class Calculator
 		{
 			throw new CalculatorException("Illegal Command");  
 		}	
-    	try
-    		{
-    			// TODO: complete this...
-    			if(command == "negate")
-    			{
-    				result = -a; 
-    			}
-    			if(command == "halve")
-    			{
-    				result = a/2;
-    			}
-    		}
-    		catch(NumberFormatException nfe)
-    		{
-    			throw new CalculatorException("Second input was not an integer. Please try again. ");
-    		}
-    		
 
 
 		
-    	return result;
+    	return a;
     }
 
     /**
@@ -107,7 +105,7 @@ public class Calculator
             throws ArithmeticException, NumberFormatException, CalculatorException
     {
        // TODO: complete this...
-        int result = 0;
+    	int result = 0;
     	int num1 = Integer.parseInt(tokens[0]); // Throws NumberFormatException if the second token is not an int value.
         String command = tokens[1];
     	int num2 = Integer.parseInt(tokens[2]);
@@ -276,21 +274,23 @@ public class Calculator
     		{
     			result = "quit";
     		}
+    		break;
     	}
     	case 2:
     	{
     		try
     		{
-    		number = Calculator.execute(split);
-    		if(number > 0 || number <= 0)
-    		{
-    			result = String.format("The result is %d", number);
-    		}
+    			number = Calculator.execute(split);
+    			if(number > 0 || number <= 0)
+    			{
+    				result = String.format("The result is %d", number);
+    			}
     		}
     		catch(NumberFormatException | CalculatorException e)
     		{
-    			result = "Please try again";
+    			result = "Calculator Exception, message is: Illegal Command";
     		}
+    		break;
     	}
     	case 3:
     	{
@@ -303,6 +303,7 @@ public class Calculator
     		{
     			result = "You divided by zero. Please try again.";
     		}
+    		break;
     	}
     	case 4:
     	{
@@ -313,8 +314,9 @@ public class Calculator
     		}
     		catch(CalculatorException | NumberFormatException e)
     		{
-    			result = String.format("%s", input);
+    			result = String.format("Calculator Exception, message is: %s", e.getMessage());
     		}
+    		break;
     	}
     	case 5:
     	{
@@ -325,8 +327,9 @@ public class Calculator
     		}
     		catch(CalculatorException e)
     		{
-    			result = String.format("%s", input);
+    			result = String.format("Calculator Exception, message is: %s", e.getMessage());
     		}
+    		break;
     	}
     	}
 		return result;

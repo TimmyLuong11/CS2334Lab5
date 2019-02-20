@@ -124,8 +124,8 @@ public class CalculatorTest {
         // TODO: complete this test...
         try
         {
-            int result = Calculator.calculateThreeTokens(new String[] {"5", "/", "5"});
-            Assert.assertEquals(1, result);
+            int result = Calculator.calculateThreeTokens(new String[] {"6", "/", "2"});
+            Assert.assertEquals(3, result);
         }
         catch (Exception e)
         {
@@ -202,15 +202,8 @@ public class CalculatorTest {
      */
     public void executeTestValidQuit() throws AssertException
     {
-        // TODO: complete this test...
-    	try
-    	{
-    		Calculator.execute(new String[] {"1", "-", "5"});
-    	}
-    	catch (Exception e)
-    	{
-    		Assert.fail("Legal expression threw an Exception: " + e.getMessage());
-    	}
+        String result = Calculator.parseAndExecute("quit");
+        Assert.assertEquals("quit", result);
     }
 
     /**
@@ -288,8 +281,8 @@ public class CalculatorTest {
         // TODO: complete this test...
     	try 
     	{
-            Calculator.parseAndExecute("5 + 6 + 7");
-            Assert.fail("Error!");
+    		String result = Calculator.parseAndExecute("1 + 2 + 3");
+            Assert.assertEquals("Calculator Exception, message is: Illegal Token Length", result);
     	}
     	catch (Exception e)
         {
@@ -331,7 +324,7 @@ public class CalculatorTest {
     public void parseAndExecuteTestInvalidNumber() throws AssertException
     {
         // TODO: complete this test...
-        String result = Calculator.parseAndExecute("5 * 6");
+        String result = Calculator.parseAndExecute("5 x 6");
         Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
     }
 
@@ -351,6 +344,6 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
         String result = Calculator.parseAndExecute("1 + 2 + 3");
-        Assert.assertEquals("1 + 2 + 3", result);
+        Assert.assertEquals("Calculator Exception, message is: Illegal Token Length", result);
     }
 }
